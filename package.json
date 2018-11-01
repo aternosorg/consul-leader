@@ -1,0 +1,25 @@
+{
+  "name": "consul-leader",
+  "version": "0.0.1",
+  "description": "Consul leader election and retirement",
+  "main": "src/Leader.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "consul",
+    "leader",
+    "distributed",
+    "lock",
+    "election"
+  ],
+  "author": "Matthias Neid",
+  "license": "MIT",
+  "dependencies": {
+    "consul": "^0.34.1",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
