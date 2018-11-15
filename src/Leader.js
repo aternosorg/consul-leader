@@ -34,6 +34,7 @@ class Leader extends EventEmitter {
         }
 
         this.options = _.defaultsDeep(options, defaultOptions);
+        this.options.consul.promisify = true;
 
         this.consul = consul(this.options.consul);
         this.session = new Session(this.consul, this.options.session);
@@ -72,6 +73,7 @@ class Leader extends EventEmitter {
             this.key.stopWatching(),
             this.session.destroy(),
         ]);
+        this.emit('retired', self);
     }
 }
 
