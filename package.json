@@ -1,7 +1,8 @@
 {
   "name": "consul-leader",
-  "version": "0.0.1",
-  "description": "Consul leader election and retirement",
+  "version": "1.0.0",
+  "description": "Consul leader election and retirement.",
+  "repository": "github:aternosorg/consul-leader",
   "main": "src/Leader.js",
   "scripts": {
     "test": "jest"
