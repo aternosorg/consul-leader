@@ -1,0 +1,19 @@
+on:
+  push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      consul:
+        image: hashicorp/consul
+        ports:
+          - 8500:8500
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
