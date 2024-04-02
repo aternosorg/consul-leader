@@ -35,6 +35,7 @@ test('second leader takes over after first leader resigns', done => {
         let leaderB = new Leader({session: {lockdelay: 1}});
         leaderB.on('elected', () => {
             expect(leaderB.session.getId()).toBe(leaderB.key.lastSessionId);
+            leaderB.resign();
             done();
         });
 

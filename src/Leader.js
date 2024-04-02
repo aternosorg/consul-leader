@@ -2,7 +2,7 @@ const _ = require('lodash');
 const EventEmitter = require('events');
 const Session = require('./Session');
 const Key = require('./Key');
-const consul = require('consul');
+const Consul = require('consul');
 
 let defaultOptions = {
     consul: { // see https://www.npmjs.com/package/consul#consuloptions
@@ -36,7 +36,7 @@ class Leader extends EventEmitter {
         this.options = _.defaultsDeep(options, defaultOptions);
         this.options.consul.promisify = true;
 
-        this.consul = consul(this.options.consul);
+        this.consul = new Consul(this.options.consul);
         this.session = new Session(this.consul, this.options.session);
         this.key = new Key(this.consul, this.options.key, this.session);
 
@@ -68,12 +68,12 @@ class Leader extends EventEmitter {
      * Resign from leadership, release locks and destroy session
      */
     async resign() {
+        this.key.stopWatching();
         await Promise.all([
             this.key.release(),
-            this.key.stopWatching(),
             this.session.destroy(),
         ]);
-        this.emit('retired', self);
+        this.emit('retired', this);
     }
 }
 
